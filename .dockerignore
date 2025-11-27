@@ -1,0 +1,6 @@
+.git
+.gitignore
+*.pyc
+/notes
+.env
+.env.example

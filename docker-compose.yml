@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  # Database service
+  db:
+    image: postgres:17
+    container_name: postgres_db
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend service (Django)
+  backend:
+    build: ./backend
+    container_name: django_backend
+    env_file:
+      - ./.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
+# Define a volume for persistent database data
+volumes:
+  postgres_data:

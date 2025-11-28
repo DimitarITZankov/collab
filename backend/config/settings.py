@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-# from dotenv import load_dotenv
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,6 +34,47 @@ DEBUG = os.environ.get('DEBUG', 'False').lower() in ('true', '1')
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(',')
 CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', 'http://localhost:8000').split(',')
 
+REST_FRAMEWORK = {
+    # https://www.django-rest-framework.org/api-guide/renderers/#installation-configuration_2
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', # so only authenticated users can gain access
+    ),
+}
+
+SIMPLE_JWT = {
+    # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    # "ROTATE_REFRESH_TOKENS": False, # If True, new refresh token issued with each refresh
+    # "BLACKLIST_AFTER_ROTATION": True,
+
+    # Token obtaining and refreshing endpoints (will be used in urls.py)
+    # "AUTH_HEADER_TYPES": ("Bearer",), # What prefix goes with the token in the Authorization header
+    # "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    # "USER_ID_FIELD": "id",
+    # "USER_ID_CLAIM": "user_id",
+    # "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
+
+    # "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    # "TOKEN_TYPE_CLAIM": "token_type",
+    # "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
+
+    # # Serializer to modify fields on the token payload
+    # 'TOKEN_OBTAIN_SERIALIZER': 'api.serializers.MyTokenObtainPairSerializer',
+
+    # # We're using Cookies (http-only) for storing tokens: configuration here!
+    # "JWT_AUTH_COOKIE": "access_token",
+    # "JWT_AUTH_REFRESH_COOKIE": "refresh_token",
+    # "JWT_AUTH_SAMESITE": "Lax", # PRODUCTION_XXX Or 'Strict' or 'None' (requires secure=True). 'Lax' is often good default.
+    # "JWT_AUTH_SECURE": False, # PRODUCTION_XXX Set to True in production (requires HTTPS)
+    # "JWT_AUTH_HTTPONLY": True, # so js can't read the cookie, ofc
+    # "JWT_AUTH_EXPIRE_COOKIE": True, # Make cookies expire when token expires
+    # "JWT_AUTH_COOKIE_PATH": "/", # Path to cookie
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,7 +84,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api'
+    'api',
+    "rest_framework"
 ]
 
 MIDDLEWARE = [

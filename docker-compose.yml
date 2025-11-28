@@ -4,7 +4,7 @@ services:
   # Database service
   db:
     image: postgres:17
-    container_name: postgres_db
+    container_name: collab_db
     restart: always
     env_file:
       - ./.env

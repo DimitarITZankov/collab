@@ -10,9 +10,9 @@ services:
    volumes:
      - postgres_data:/var/lib/postgresql/data
  
- collab-backend:
+ backend:
    build: ./backend
-   container_name: collab-django
+   container_name: django-backend
    ports:
      - "8000:8000"
    depends_on:

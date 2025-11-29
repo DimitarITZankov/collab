@@ -1,21 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
-# Wait for the database to be ready
-echo "Entrypoint script: Waiting for PostgreSQL..."
+DB_HOST=$DATABASE_HOST
+DB_PORT=$DATABASE_PORT
+
+echo "Entrypoint script: Waiting for PostgreSQL at $DB_HOST:$DB_PORT..."
 
 # This loop checks if the database is ready by trying to connect to it.
-until PGPASSWORD="$DB_PASSWORD" psql -h "db" -U "$DB_USER" -c '\q'; do
-  >&2 echo "Entrypoint script: PostgreSQL is unavailable - sleeping 1s"
+until printf "" 2>>/dev/null >>/dev/tcp/$DB_HOST/$DB_PORT; do
+  echo "PostgreSQL is unavailable - sleeping"
   sleep 1
 done
 
-echo "Entrypoint script: PostgreSQL started"
+echo "Entrypoint script: PostgreSQL started - executing command"
 
-# Apply database migrations
 python manage.py migrate --noinput
 
-# Start the Gunicorn server
-exec gunicorn --bind 0.0.0.0:8000 --workers 3 config.wsgi:application
+exec "$@"

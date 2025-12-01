@@ -22,9 +22,10 @@
 
 # Create custom user model to test the JWT
 	- Intialize in the settings.py the new auth model by: 
-	AUTH_USER_MODEL = 'yourapp.CustomUser'
-	- After creating the custom user model run makemigrations and then migrate to save everything
+	AUTH_USER_MODEL = 'app.CustomUser' ['app' is the name of our app in this case]
+	- After creating the custom user model run makemigrations and then migrate to save everything [in this case we automatically migrate on docker compose up, so we don't manually]
 
 # Create Register API
 	- Create serializer for registering users in the serializers.py file
 	- Create RegisterAPIView in the views.py app's file
+	- Add the /register endpoint to the app's urls.py file

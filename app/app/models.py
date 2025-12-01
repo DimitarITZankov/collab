@@ -23,8 +23,9 @@ class UserManager(BaseUserManager):
 		return self.create_user(email, password, **extra_fields)
 
 class CustomUser(AbstractBaseUser,PermissionsMixin):
-	# Create roles with permissions
+	# Create roles with permissions using TextChoices provided by Django (django.db.models) used to define enumerations for model fields
 	class Roles(models.TextChoices):
+		# Initialize the different roles
 		ADMIN = "admin", "Admin"
 		MODERATOR = "moderator", "Moderator"
 		USER = "user", "User"

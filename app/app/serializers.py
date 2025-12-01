@@ -15,7 +15,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 	# Override the create function
 	def create(self,validated_data):
-		user = User.objects.create_user(email=validated_data['email'],name=validated_data['name'],password=validated_data['password'])
+		user = User.objects.create_user(email=validated_data['email'],name=validated_data['name'],username=validated_data['username'],password=validated_data['password'])
 		return user
 
 # Other way to override the create function

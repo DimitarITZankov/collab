@@ -29,3 +29,8 @@
 	- Create serializer for registering users in the serializers.py file
 	- Create RegisterAPIView in the views.py app's file
 	- Add the /register endpoint to the app's urls.py file
+
+# Add custom roles to our custom user model
+	- Add class Roles into the Custom User Model
+	- Add role field into the model
+	- When create_user assign every user to USER role, while create_superuser assign every superuser to ADMIN role

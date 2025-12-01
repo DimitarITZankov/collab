@@ -11,3 +11,4 @@
 	2. Pre-forking avoids creating a new process for every request (which is slow)
 	3. If one worker crashes, others continue serving
 	! Guincorn creates multiple worker processes in advance to handle multiple requests at once. It's faster and safer than starting a new process for every request
+

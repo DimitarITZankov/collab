@@ -30,6 +30,9 @@
 	- Create RegisterAPIView in the views.py app's file
 	- Add the /register endpoint to the app's urls.py file
 
+# Define the admin page for users
+	- Add the field 'role' into the admin page
+
 # Add custom roles to our custom user model
 	- Add class Roles into the Custom User Model
 	- Add role field into the model

@@ -17,5 +17,6 @@ done
 echo "Entrypoint script: PostgreSQL started - executing command"
 
 python manage.py migrate --noinput
+python manage.py collectstatic --noinput
 
 exec "$@"

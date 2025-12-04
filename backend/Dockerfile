@@ -42,8 +42,11 @@ RUN apt-get update && \
     # Clean up apt lists
     && rm -rf /var/lib/apt/lists/*
 
+# Create the app directory
+RUN mkdir /app
+
+# Add non-root user
 RUN useradd -m -r appuser && \
-   mkdir /app && \
    chown -R appuser /app
  
 # Copy the Python dependencies from the builder stage
@@ -65,13 +68,13 @@ COPY --chown=appuser:appuser . .
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1 
  
-# Switch to non-root user
-USER appuser
- 
 # Expose the application port
 EXPOSE 8000 
  
 ENTRYPOINT ["entrypoint.sh"]
+
+# Switch to non-root user
+USER appuser
 
 # Start the application using Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "config.wsgi:application"]

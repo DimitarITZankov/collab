@@ -18,6 +18,7 @@ services:
    depends_on:
      - db
    environment:
+     DJANGO_ENV: ${DJANGO_ENV}
      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
      DEBUG: ${DJANGO_DEBUG}
      DJANGO_LOGLEVEL: ${DJANGO_LOGLEVEL}
@@ -28,5 +29,6 @@ services:
      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
      DATABASE_HOST: ${DATABASE_HOST}
      DATABASE_PORT: ${DATABASE_PORT}
+
 volumes:
    postgres_data:

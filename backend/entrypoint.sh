@@ -10,7 +10,7 @@ echo "Entrypoint script: Waiting for PostgreSQL at $DB_HOST:$DB_PORT..."
 
 # This loop checks if the database is ready by trying to connect to it.
 until printf "" 2>>/dev/null >>/dev/tcp/$DB_HOST/$DB_PORT; do
-  echo "PostgreSQL is unavailable - sleeping"
+  echo "PostgreSQL is unavailable - sleeping for 1 second"
   sleep 1
 done
 

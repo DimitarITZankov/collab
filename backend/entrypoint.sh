@@ -19,7 +19,7 @@ echo "Entrypoint: PostgreSQL has started"
 echo "Running Django migrations..."
 python manage.py migrate --noinput
 
-# Optionally collect static ONLY in production
+# Collect static ONLY in production
 if [ "$DJANGO_ENV" = "prod" ]; then
     echo "Collecting static files..."
     python manage.py collectstatic --noinput

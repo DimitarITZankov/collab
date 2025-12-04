@@ -3,7 +3,7 @@ import os
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
-DEBUG = bool(os.environ.get("DJANGO_DEBUG", default=0))
+DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1" # returning any string will return true, so you must check if the string value matches "1", which equates to True
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
 
@@ -24,3 +24,13 @@ DATABASES = {
 }
 
 CSRF_TRUSTED_ORIGINS = os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', 'http://localhost:8000').split(',')
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = []
+STATIC_ROOT = None
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / 'media'

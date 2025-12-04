@@ -1,6 +1,8 @@
 services:
  db:
    image: postgres:17
+   env_file:
+     - .env.prod
    environment:
      POSTGRES_DB: ${DATABASE_NAME}
      POSTGRES_USER: ${DATABASE_USERNAME}
@@ -13,12 +15,14 @@ services:
  backend:
    build:
      context: ./backend
-     dockerfile: Dockerfile.dev
+     dockerfile: Dockerfile.prod
    container_name: django-backend
    ports:
      - "8000:8000"
    depends_on:
      - db
+   env_file:
+     - .env.prod
    environment:
      DJANGO_ENV: ${DJANGO_ENV}
      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
@@ -31,8 +35,7 @@ services:
      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
      DATABASE_HOST: ${DATABASE_HOST}
      DATABASE_PORT: ${DATABASE_PORT}
-   volumes:
-     - ./backend:/app # for hot reload
+   restart: always
 
 volumes:
    postgres_data:

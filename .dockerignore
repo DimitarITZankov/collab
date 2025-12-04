@@ -3,6 +3,5 @@
 *.pyc
 /notes
 .env
-.env.dev
 .env.prod
 .env.example

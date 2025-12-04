@@ -34,5 +34,15 @@ services:
    volumes:
      - ./backend:/app # for hot reload
 
+ frontend:
+   build:
+     context: ./frontend
+     dockerfile: Dockerfile.dev
+   container_name: vite-frontend
+   ports:
+     - "5173:5173"
+   volumes:
+     - ./frontend:/app
+
 volumes:
    postgres_data:

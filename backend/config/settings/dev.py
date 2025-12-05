@@ -23,6 +23,8 @@ DATABASES = {
     }
 }
 
+# Allows request that include HttpOnly cookies, Authorization: Bearer, credentials "include" in fetch
+CORS_ALLOW_CREDENTIALS = True
 # Allows Django to accept cookies + CSRF tokens
 CSRF_TRUSTED_ORIGINS = os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', 'http://localhost:8000').split(',')
 # Allows JavaScript in the browser make requests to the Django API from another domain/port

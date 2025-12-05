@@ -1,5 +1,4 @@
 from pathlib import Path
-from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -9,20 +8,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 REST_FRAMEWORK = {
     # https://www.django-rest-framework.org/api-guide/renderers/#installation-configuration_2
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated', # so only authenticated users can gain access
     ),
 }
 
-SIMPLE_JWT = {
-    # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-}
 
 # Application definition
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -32,7 +27,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
-    'rest_framework_simplejwt',
     'corsheaders'
 ]
 

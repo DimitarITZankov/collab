@@ -3,9 +3,8 @@ from rest_framework import generics
 from .serializers import UserSerializer
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate, login, logout
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework import status
 
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):
@@ -14,6 +13,7 @@ class CreateUserView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def login_view(request):
     username = request.data.get("username")
     password = request.data.get("password")
@@ -34,6 +34,7 @@ def logout_view(request):
     return Response({"message": "Logged out"})
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def whoami(request):
     if request.user.is_authenticated:
         return Response({"username": request.user.username})

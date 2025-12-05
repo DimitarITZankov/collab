@@ -5,7 +5,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1" # returning any string will return true, so you must check if the string value matches "1", which equates to True
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","localhost").split(",")
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -26,7 +26,7 @@ DATABASES = {
 # Allows request that include HttpOnly cookies, Authorization: Bearer, credentials "include" in fetch
 CORS_ALLOW_CREDENTIALS = True
 # Allows Django to accept cookies + CSRF tokens
-CSRF_TRUSTED_ORIGINS = os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', 'http://localhost:8000').split(',')
+CSRF_TRUSTED_ORIGINS = os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', 'http://localhost:5173').split(',')
 # Allows JavaScript in the browser make requests to the Django API from another domain/port
 CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_CORS_ALLOWED_ORIGINS', 'http://localhost:5173').split(',')
 

@@ -76,5 +76,5 @@ ENTRYPOINT ["entrypoint.sh"]
 # Switch to non-root user
 USER appuser
 
-# Start the application using the Django development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Start the application using the Django development server - auto re-load if it crashes
+CMD ["sh", "-c", "while true; do python manage.py runserver 0.0.0.0:8000; sleep 1; done"]

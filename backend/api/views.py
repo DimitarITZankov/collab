@@ -32,3 +32,9 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return Response({"message": "Logged out"})
+
+@api_view(["GET"])
+def whoami(request):
+    if request.user.is_authenticated:
+        return Response({"username": request.user.username})
+    return Response({"username": None})

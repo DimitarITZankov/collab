@@ -23,7 +23,10 @@ DATABASES = {
     }
 }
 
+# Allows Django to accept cookies + CSRF tokens
 CSRF_TRUSTED_ORIGINS = os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', 'http://localhost:8000').split(',')
+# Allows JavaScript in the browser make requests to the Django API from another domain/port
+CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_CORS_ALLOWED_ORIGINS', 'http://localhost:5173').split(',')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
